@@ -34,7 +34,10 @@ body {
   font-size: 1rem;
   line-height: 1.65;
   color: var(--color-ink);
-  background: var(--color-bg);
+  background:
+    linear-gradient(180deg, rgba(246, 244, 241, 0.65) 0%, rgba(246, 244, 241, 0.70) 100%),
+    url("../images/hero1.jpg") center/cover no-repeat fixed;
+  background-color: #f6f4f1;
 }
 
 img {
@@ -255,6 +258,10 @@ main {
 }
 
 @media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+
   .hero {
     background-attachment: scroll;
     background-position: 70% center;
@@ -494,7 +501,7 @@ main {
 }
 
 .section-services {
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.75);
 }
 
 .section-services .expertise-grid li {
@@ -533,7 +540,7 @@ main {
 }
 
 .section-rates {
-  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+  background: linear-gradient(180deg, rgba(246, 244, 241, 0.75) 0%, rgba(255, 255, 255, 0.75) 100%);
 }
 
 .rates-grid {
@@ -617,7 +624,7 @@ main {
 }
 
 .section-testimonials {
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.75);
 }
 
 .testimonial-cards {
@@ -681,17 +688,24 @@ main {
   color: var(--color-ink-muted);
 }
 
-.gallery-placeholder {
-  text-align: center;
-  color: var(--color-ink-muted);
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+.gallery-carousel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+.gallery-track {
+  display: flex;
   gap: 1rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  flex: 1;
+  padding: 0.25rem 0;
+}
+
+.gallery-track::-webkit-scrollbar {
+  display: none;
 }
 
 .gallery-item {
@@ -699,17 +713,113 @@ main {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
+  aspect-ratio: 4 / 3;
+  position: relative;
+  cursor: pointer;
+  flex: 0 0 calc(33.333% - 0.67rem);
+  min-width: 16rem;
 }
 
-.gallery-item img {
+.gallery-item img,
+.gallery-item video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+  display: block;
 }
 
-.gallery-item:hover img {
+.gallery-item:hover img,
+.gallery-item:hover video {
   transform: scale(1.04);
+}
+
+.gallery-arrow {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.gallery-arrow:hover {
+  background: var(--color-bg);
+}
+
+.gallery-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  .gallery-item {
+    flex: 0 0 85%;
+  }
+
+  .gallery-arrow {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.25rem;
+  }
+}
+
+.gallery-item-video video {
+  background: #000;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: var(--radius);
+}
+
+.lightbox-content img,
+.lightbox-content video {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: var(--radius);
+  display: block;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  cursor: pointer;
+  line-height: 1;
 }
 
 .section-contact {

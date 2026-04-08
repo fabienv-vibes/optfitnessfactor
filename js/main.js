@@ -124,5 +124,76 @@
       window.addEventListener("scroll", onScroll, { passive: true });
       onScroll();
     }
+
+    // Gallery: lightbox (photos only)
+    var lightbox = document.getElementById("lightbox");
+    var lightboxContent = document.getElementById("lightbox-content");
+
+    function openLightbox(el) {
+      if (!lightbox || !lightboxContent) return;
+      lightboxContent.innerHTML = "";
+      var img = document.createElement("img");
+      img.src = el.src;
+      img.alt = el.alt || "";
+      lightboxContent.appendChild(img);
+      lightbox.classList.add("active");
+      lightbox.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLightbox() {
+      if (!lightbox || !lightboxContent) return;
+      lightbox.classList.remove("active");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxContent.innerHTML = "";
+    }
+
+    document.querySelectorAll(".gallery-item:not(.gallery-item-video)").forEach(function (item) {
+      item.addEventListener("click", function () {
+        var img = item.querySelector("img");
+        if (img) openLightbox(img);
+      });
+    });
+
+    if (lightbox) {
+      lightbox.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
+      lightbox.addEventListener("click", function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && lightbox.classList.contains("active")) closeLightbox();
+      });
+    }
+
+    // Gallery: carousel arrows
+    var track = document.querySelector(".gallery-track");
+    var prevBtn = document.querySelector(".gallery-prev");
+    var nextBtn = document.querySelector(".gallery-next");
+
+    if (track && prevBtn && nextBtn) {
+      var getItemWidth = function () {
+        var item = track.querySelector(".gallery-item");
+        return item ? item.offsetWidth + 16 : 300;
+      };
+
+      nextBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        var amount = getItemWidth();
+        track.scrollLeft += amount;
+      });
+
+      prevBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        var amount = getItemWidth();
+        track.scrollLeft -= amount;
+      });
+
+      var updateArrows = function () {
+        prevBtn.disabled = track.scrollLeft <= 4;
+        nextBtn.disabled = track.scrollLeft + track.offsetWidth >= track.scrollWidth - 4;
+      };
+
+      track.addEventListener("scroll", updateArrows, { passive: true });
+      updateArrows();
+    }
   });
 })();

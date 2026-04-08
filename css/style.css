@@ -249,9 +249,16 @@ main {
   padding: 3rem 1rem 4rem;
   background:
     linear-gradient(160deg, rgba(20, 20, 25, 0.72) 0%, rgba(20, 20, 25, 0.55) 100%),
-    url("../images/hero1.jpg") center/cover no-repeat;
+    url("../images/hero1.jpg") center/cover no-repeat fixed;
   background-color: #2c3339;
   color: #f6f4f1;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    background-attachment: scroll;
+    background-position: 70% center;
+  }
 }
 
 .hero-inner {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Page not found - OPT Fitness Factor</title>
+  <link rel="canonical" href="https://optfitnessfactor.com/">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="3; url=https://optfitnessfactor.com/">
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 40rem; margin: 4rem auto; padding: 0 1.5rem; color: #333; line-height: 1.6; }
+    h1 { color: #c00; font-size: 1.5rem; }
+    a { color: #c00; }
+  </style>
+  <script>
+    // Best-effort mapping of old Remixer paths to new anchors
+    (function() {
+      var path = (window.location.pathname || "").toLowerCase().replace(/\/+$/, "");
+      var map = {
+        "/my-page-21": "/#about",
+        "/about": "/#rates",
+        "/my-page-2": "/#testimonials",
+        "/contacts": "/#contact",
+        "/contact": "/#contact",
+        "/services": "/#services",
+        "/rates": "/#rates",
+        "/testimonials": "/#testimonials",
+        "/gallery": "/#gallery"
+      };
+      if (map[path]) {
+        window.location.replace("https://optfitnessfactor.com" + map[path]);
+        return;
+      }
+      // No mapping — send to homepage after a brief delay
+      setTimeout(function() { window.location.replace("https://optfitnessfactor.com/"); }, 3000);
+    })();
+  </script>
+</head>
+<body>
+  <h1>Page not found</h1>
+  <p>The page you're looking for has moved. Taking you to the <a href="https://optfitnessfactor.com/">OPT Fitness Factor homepage</a>...</p>
+</body>
+</html>
